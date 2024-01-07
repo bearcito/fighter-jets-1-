@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<style type="text/css">
+		#ocean { 
+			background-image: url("ocean.jpg");
+			width: 900px;
+			height: 700px;
+		}
+		.player {
+			width: 70px;
+			height: 75px;
+			background-image: url('player.png');
+			position: absolute;
+		}
+		.enemy {
+			width: 70px;
+			height: 75px;
+			background-image: url('enemy.png');
+			position: absolute;
+		}
+	</style>
+	<div id="ocean">
+		<div id="players" style="left: 100px; top: 100px;">
+			<div class="player"> </div>
+		</div>
+		<div id="enemies">
+			<div class="enemy"> </div>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		// Definición de la posición inicial del jugador y enemigos
+		var player = {
+			left: 450,
+			top: 620
+		};
+
+		var enemies = [
+			{ left: 350, top: 200 },
+			{ left: 450, top: 200 },
+			{ left: 200, top: 300 },
+			{ left: 600, top: 400 },
+			{ left: 300, top: 500 }
+		];
+
+		// Función para dibujar al jugador en la pantalla
+		function drawPlayer() {
+			var content = "<div class='player' style='left:" + player.left + "px; top:" + player.top + "px;'></div>";
+			document.getElementById("players").innerHTML = content;
+		}
+
+		// Dibujar al jugador inicialmente
+		drawPlayer();
+
+		// Manejo de eventos para el teclado usando e.keyCode
+		document.onkeydown = function(e){
+			console.log(e);
+			if(e.keyCode == 37){ // Flecha izquierda
+				player.left -= 10;
+			}
+			if(e.keyCode == 39){ // Flecha derecha
+				player.left += 10;
+			}
+			if(e.keyCode == 38){ // Flecha arriba
+				player.top -= 10;
+			}
+			if(e.keyCode == 40){ // Flecha abajo
+				player.top += 10;
+			}
+			
+			// Volver a dibujar al jugador después de moverse
+			drawPlayer();
+			// Llamar a la función para dibujar a los enemigos
+			drawEnemies();
+		}
+
+		// Función para dibujar a los enemigos en la pantalla
+		function drawEnemies(){
+			var content = "";
+			console.log(enemies);
+			for(var idx = 0; idx<enemies.length; idx++){
+				content += "<div class='enemy' style='left:" + enemies[idx].left + "px; top:" + enemies[idx].top + "px;'></div>";
+			}
+			document.getElementById("enemies").innerHTML = content;
+		}
+	</script>
+</body>
+</html>
